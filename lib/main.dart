@@ -64,8 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _validateMonth= false; //dropdown Month
   bool _validateYear= false; //dropdown Year
 
-  String? _chosenValueMonth;
-  String? _chosenValueYear;
+  // String? _chosenValueMonth;
+  // String? _chosenValueYear;
+  String? _chosenValue;
 
   int index=0;
   // String? selectedValueMonth;
@@ -154,39 +155,43 @@ class _MyHomePageState extends State<MyHomePage> {
     var now = new DateTime.now();
     var MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
-    final List<String> itemsMonth = [];
-    final List<String> itemsYear = [];
+    // final List<String> itemsMonth = [];
+    // final List<String> itemsYear = [];
+    // int yearlist = now.year; //show dropdown 2 year
+    // for(int i=0;i<2;++i){
+    //   String year_str = yearlist.toString();
+    //   itemsYear.add(year_str);
+    //   yearlist+=1;
+    // }
 
-    int yearlist = now.year; //show dropdown 2 year
-    for(int i=0;i<2;++i){
-      String year_str = yearlist.toString();
-      itemsYear.add(year_str);
-      yearlist+=1;
-    }
-
+    final List<String> items = [];
     String formattedDateTime(int num) {
       DateTime now = new DateTime.now();
       var years = now.year+543;
-      return MONTHS[now.month+num];
+      return MONTHS[now.month+num]+" "+years.toString();
     }
 
     String formattedDateOver(int num) {
-      int count = now.year+543;
-      // var year = count+1;
-      return MONTHS[num-1]; //MONTHS[num-1]+" "+year.toString()
+      int count = now.year + 543;
+      // var new_year = new DateTime(2567, num);
+      var year = count + 1;
+      // print("เดือน $num");
+      //print(MONTHS[num]);
+      return MONTHS[num - 1] + " " + year.toString();
     }
 
-    int count = now.month;
+      int count = now.month;
     int countYear = 1;
     var count_month=12;
       for(int i=0;i<count_month;++i) {
       count++;
 
       if(count > 12){
-        itemsMonth.add(formattedDateOver(countYear));
+        items.add(formattedDateOver(countYear));
+        // print(countYear);
         countYear++;
       }else{
-        itemsMonth.add(formattedDateTime(i));
+        items.add(formattedDateTime(i));
 
       }
     }
@@ -506,13 +511,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Colors.black,
                                               fontSize: 18.0),
                                         ),
-                                        value: _chosenValueMonth,
+                                        value: _chosenValue,
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor: Colors.white,
                                         ),
                                         // isDense: true,
-                                        items: itemsMonth.map<DropdownMenuItem<String>>((String value) {
+                                        items: items.map<DropdownMenuItem<String>>((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
                                             child: Text (value,
@@ -547,97 +552,97 @@ class _MyHomePageState extends State<MyHomePage> {
                                           final splitted = value?.split(' ');
                                           print(splitted![0]);
                                           switch(splitted[0]){
-                                            case "มกราคม" : {valueMonth='1'; } break;
-                                            case "กุมภาพันธ์" : {valueMonth='2';}break;
-                                            case "มีนาคม" : {valueMonth='3'; } break;
-                                            case "เมษายน" : {valueMonth='4'; } break;
-                                            case "พฤษภาคม" : {valueMonth='5'; } break;
-                                            case "มิถุนายน" : {valueMonth='6'; } break;
-                                            case "กรกฎาคม" : {valueMonth='7'; } break;
-                                            case "สิงหาคม" : {valueMonth='8'; } break;
-                                            case "กันยายน" : {valueMonth='9'; } break;
-                                            case "ตุลาคม" :{valueMonth='10';} break;
-                                            case "พฤศจิกายน" : {valueMonth='11'; } break;
-                                            case "ธันวาคม" : {valueMonth='12'; } break;
+                                            case "มกราคม" : {valueMonth='1'; valueYear=splitted[1];} break;
+                                            case "กุมภาพันธ์" : {valueMonth='2'; valueYear=splitted[1];}break;
+                                            case "มีนาคม" : {valueMonth='3'; valueYear=splitted[1];} break;
+                                            case "เมษายน" : {valueMonth='4'; valueYear=splitted[1];} break;
+                                            case "พฤษภาคม" : {valueMonth='5'; valueYear=splitted[1];} break;
+                                            case "มิถุนายน" : {valueMonth='6'; valueYear=splitted[1];} break;
+                                            case "กรกฎาคม" : {valueMonth='7'; valueYear=splitted[1];} break;
+                                            case "สิงหาคม" : {valueMonth='8'; valueYear=splitted[1];} break;
+                                            case "กันยายน" : {valueMonth='9'; valueYear=splitted[1];} break;
+                                            case "ตุลาคม" :{valueMonth='10'; valueYear=splitted[1];} break;
+                                            case "พฤศจิกายน" : {valueMonth='11'; valueYear=splitted[1];} break;
+                                            case "ธันวาคม" : {valueMonth='12'; valueYear=splitted[1];} break;
                                           }
                                           print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
                                           setState(() {
-                                            _chosenValueMonth = value;
+                                            _chosenValue = value;
                                           });
                                         },
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 10,),
-                                  Container(
-                                    // decoration: BoxDecoration(color: Colors.grey.shade50,),
-                                    height: 70,
-                                    width: 140.0,
-                                    child: Form(
-                                      key: _formKey,
-                                      child: DropdownButtonFormField(
-                                        dropdownColor: Colors.white,
-                                        isExpanded: true,
-                                        isDense: true,
-                                        // focusColor:Colors.white,
-                                        style: GoogleFonts.mitr(
-                                          textStyle: TextStyle(
-                                            // overflow: TextOverflow.ellipsis,
-                                              color: Colors.black,
-                                              fontSize: 18.0),
-                                        ),
-                                        value: _chosenValueYear,
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                        ),
-                                        // isDense: true,
-                                        items: itemsYear.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text (value,
-                                              // overflow: TextOverflow.fade,
-                                              style:GoogleFonts.mitr(
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16.0),
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                        validator: (value) {
-                                          if (value == null) {
-                                            _validateYear = true;
-                                            return "โปรดเลือกปี";
-                                          }else{
-                                            _validateYear = false;
-                                          }
-                                          return null;
-                                        },
-                                        hint:Text(
-                                          "เลือกปี",
-                                          style: GoogleFonts.mitr(
-                                            textStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 15.0),
-                                          ),
-                                        ),
-                                        onChanged: (String? value) {
-
-                                          final splitted = value?.split(' ');
-                                          print(splitted![0]);
-                                          switch(splitted[0]){
-                                            case "2556" : {valueMonth='1'; valueYear=splitted[1];} break;
-                                            case "2557" : {valueMonth='2'; valueYear=splitted[1];}break;
-                                          }
-                                          print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
-                                          setState(() {
-                                            _chosenValueYear = value;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
+                                  // SizedBox(width: 10,),
+                                  // Container(
+                                  //   // decoration: BoxDecoration(color: Colors.grey.shade50,),
+                                  //   height: 70,
+                                  //   width: 140.0,
+                                  //   child: Form(
+                                  //     key: _formKey,
+                                  //     child: DropdownButtonFormField(
+                                  //       dropdownColor: Colors.white,
+                                  //       isExpanded: true,
+                                  //       isDense: true,
+                                  //       // focusColor:Colors.white,
+                                  //       style: GoogleFonts.mitr(
+                                  //         textStyle: TextStyle(
+                                  //           // overflow: TextOverflow.ellipsis,
+                                  //             color: Colors.black,
+                                  //             fontSize: 18.0),
+                                  //       ),
+                                  //       value: _chosenValueYear,
+                                  //       decoration: InputDecoration(
+                                  //         filled: true,
+                                  //         fillColor: Colors.white,
+                                  //       ),
+                                  //       // isDense: true,
+                                  //       items: items.map<DropdownMenuItem<String>>((String value) {
+                                  //         return DropdownMenuItem<String>(
+                                  //           value: value,
+                                  //           child: Text (value,
+                                  //             // overflow: TextOverflow.fade,
+                                  //             style:GoogleFonts.mitr(
+                                  //               textStyle: TextStyle(
+                                  //                   color: Colors.black,
+                                  //                   fontSize: 16.0),
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //       }).toList(),
+                                  //       validator: (value) {
+                                  //         if (value == null) {
+                                  //           _validateYear = true;
+                                  //           return "โปรดเลือกปี";
+                                  //         }else{
+                                  //           _validateYear = false;
+                                  //         }
+                                  //         return null;
+                                  //       },
+                                  //       hint:Text(
+                                  //         "เลือกปี",
+                                  //         style: GoogleFonts.mitr(
+                                  //           textStyle: TextStyle(
+                                  //               color: Colors.blue,
+                                  //               fontSize: 15.0),
+                                  //         ),
+                                  //       ),
+                                  //       onChanged: (String? value) {
+                                  //
+                                  //         final splitted = value?.split(' ');
+                                  //         print(splitted![0]);
+                                  //         switch(splitted[0]){
+                                  //           case "2556" : {valueMonth='1'; valueYear=splitted[1];} break;
+                                  //           case "2557" : {valueMonth='2'; valueYear=splitted[1];}break;
+                                  //         }
+                                  //         print('us $valueUs oil $valueOil month $valueMonth and year $valueYear');
+                                  //         setState(() {
+                                  //           _chosenValueYear = value;
+                                  //         });
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  // ),
 
                                 ]
 
@@ -669,14 +674,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                           if (_formKey.currentState!.validate()) {
                                             _formKey.currentState!.save();
                                           }
-                                          if (_formKey2.currentState!.validate()) {
-                                            _formKey2.currentState!.save();
-                                          }
+                                          // if (_formKey2.currentState!.validate()) {
+                                          //   _formKey2.currentState!.save();
+                                          // }
                                           _text1.text.isEmpty ? _validate1 = true : _validate1 = false;
                                           _text2.text.isEmpty ? _validate2 = true : _validate2= false;
                                           _text3.text.isEmpty ? _validate3 = true : _validate3= false;
 
-                                          if(_validate1==false&&_validate2==false&&_validate3==false&&_validateMonth==false&&_validateYear==false) {
+                                          if(_validate1==false&&_validate2==false&&_validate3==false&&_validateMonth==false) {
                                             url =
                                             "http://127.0.0.1:5000/predict_model?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
                                             print(url);
