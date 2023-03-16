@@ -282,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 25.0),
                   child:  Container(
                     alignment: Alignment.bottomCenter,
                     width: 748,
