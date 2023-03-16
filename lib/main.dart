@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'API.dart';
 import 'dart:convert';
 
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool mounted = true;
   int _selectedIndex = 0;
-  final _formKey = GlobalKey<FormState>(); // dropdow month
+  final _formKey = GlobalKey<FormState>(); // dropdown month
   final _formKey2 = GlobalKey<FormState>(); // dropdown year
 
   final _text1 = TextEditingController();  // controller thai value
@@ -155,14 +156,6 @@ class _MyHomePageState extends State<MyHomePage> {
     var now = new DateTime.now();
     var MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
-    // final List<String> itemsMonth = [];
-    // final List<String> itemsYear = [];
-    // int yearlist = now.year; //show dropdown 2 year
-    // for(int i=0;i<2;++i){
-    //   String year_str = yearlist.toString();
-    //   itemsYear.add(year_str);
-    //   yearlist+=1;
-    // }
 
     final List<String> items = [];
     String formattedDateTime(int num) {
@@ -195,6 +188,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
       }
     }
+
+    _launchURLPriceThai() async {
+      const url = 'https://www.thaifeedmill.com/price-2/';
+      if (await canLaunch(url)) {
+        await launch(url, forceSafariVC: true, forceWebView: true);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    _launchURLPriceUs() async {
+      const url = 'https://finance.yahoo.com/quote/ZM=F/';
+      if (await canLaunch(url)) {
+        await launch(url, forceSafariVC: true, forceWebView: true);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    _launchURLPriceCrudeoil() async {
+      const url = 'https://finance.yahoo.com/quote/CL=F/';
+      if (await canLaunch(url)) {
+        await launch(url, forceSafariVC: true, forceWebView: true);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     return Scaffold(
       // appBar: AppBar(
       // title: Text('Soybean Forecast'),
@@ -264,7 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.only(top: 20.0),
                   child:  Container(
                     alignment: Alignment.bottomCenter,
-                    width: 720,
+                    width: 748,
                     height: 560,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -277,8 +298,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
+                                  // alignment: Alignment.center,
                                   width: 290,
                                   height:83,
                                   child: Expanded(
@@ -289,6 +312,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     ),
                                   ),
+
                                 ),
                                 SizedBox(width: 7.0),
                                 FractionalTranslation(
@@ -338,6 +362,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                         fontSize: 18.0),
                                   ),
                                   ),
+                                ),
+                                IconButton(
+                                  iconSize: 15,
+                                  icon: const Icon(Icons.open_in_new),
+                                  onPressed: _launchURLPriceThai,
                                 ),
                               ],
                             ),
@@ -407,11 +436,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   ),
                                 ),
+                                IconButton(
+                                  iconSize: 15,
+                                  icon: const Icon(Icons.open_in_new),
+                                  onPressed: _launchURLPriceUs
+                                ),
                               ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 22), //distance textfield 1 & 2
+                            padding: const EdgeInsets.only(left: 8, top: 22, bottom: 22, right: 2), //distance textfield 1 & 2
                             child: Row(
                               children: [
                                 Container(
@@ -474,6 +508,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   ),
                                 ),
+                                IconButton(
+                                  iconSize: 15,
+                                  icon: const Icon(Icons.open_in_new),
+                                  onPressed: _launchURLPriceCrudeoil,
+                                ),
                               ],
                             ),
                           ),
@@ -497,7 +536,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Container(
                                     // decoration: BoxDecoration(color: Colors.grey.shade50,),
                                     height: 70,
-                                    width: 140.0,
+                                    width: 150.0,
                                     child: Form(
                                       key: _formKey2,
                                       child: DropdownButtonFormField(
@@ -728,7 +767,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Container(
-                    width: 720,
+                    width: 748,
                     height: 180,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
