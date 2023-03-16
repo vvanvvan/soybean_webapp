@@ -282,7 +282,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child:  Container(
                     alignment: Alignment.bottomCenter,
                     width: 748,
@@ -292,7 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.amber.shade300,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(top:35.0, left:35.0, right: 35.0),
+                      padding: const EdgeInsets.only(top:48.0, left:35.0, right: 35.0),
                       child: Column(
                         children: [
                           Padding(
