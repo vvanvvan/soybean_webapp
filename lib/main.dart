@@ -1,11 +1,11 @@
 import 'dart:html';
 
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:excel/excel.dart';
+// import 'package:dropdown_button2/dropdown_button2.dart';
+// import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'API.dart';
 import 'dart:convert';
@@ -48,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 
-  bool mounted = true;
+
   int _selectedIndex = 0;
   final _formKey = GlobalKey<FormState>(); // dropdown month
   final _formKey2 = GlobalKey<FormState>(); // dropdown year
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _validate3= false; //crude oil
 
   bool _validateMonth= false; //dropdown Month
-  bool _validateYear= false; //dropdown Year
+  // bool _validateYear= false; //dropdown Year
 
   // String? _chosenValueMonth;
   // String? _chosenValueYear;
@@ -140,10 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           );
         });
-
-    // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
-    // Close the dialog programmatically
-    // We use "mounted" variable to get rid of the "Do not use BuildContexts across async gaps" warning
 
 
   }
@@ -491,7 +487,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         errorText: _validate3 ? 'โปรดกรอกช่องนี้' : null,
                                       ),
                                       onChanged: (value) {
-                                        value=value;
+                                        valueOil=value;
                                         setState(() {
                                           _text3.text.isEmpty ? _validate3 = true : _validate3 = false;
                                         });
@@ -710,8 +706,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          if (_formKey.currentState!.validate()) {
-                                            _formKey.currentState!.save();
+                                          if (_formKey2.currentState!.validate()) {
+                                            _formKey2.currentState!.save();
                                           }
                                           // if (_formKey2.currentState!.validate()) {
                                           //   _formKey2.currentState!.save();
@@ -722,7 +718,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                           if(_validate1==false&&_validate2==false&&_validate3==false&&_validateMonth==false) {
                                             url =
-                                            "http://127.0.0.1:5000/predict_model?Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
+                                            "http://127.0.0.1:5000/predict_model?Soybean_meal_TH=$valueinputTH&Soybean_meal_US=$valueUs&Crude_Oil=$valueOil&New_Month=$valueMonth&Year=$valueYear";
                                             print(url);
                                             fetchData(context);
                                             Data = await Getdata(url);

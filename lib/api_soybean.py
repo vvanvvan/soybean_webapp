@@ -10,17 +10,17 @@ def predict_model():
 	from datetime import datetime
 	import pandas as pd
 	import tensorflow as tf
-
+	print("444444")
 	# ----- รับข้อมูลจากหน้า web ---------
 	d = {}
+	d['Soybean_meal_TH'] = float(request.args['Soybean_meal_TH'])
 	d['Soybean_meal_US'] = float(request.args['Soybean_meal_US'])
 	d['Crude_Oil'] = float(request.args['Crude_Oil'])
 	d['New_Month'] = float(request.args['New_Month'])
 	d['Year'] = float(request.args['Year'])
-
 	df_input = pd.DataFrame([d])  # แปลงเป็น dataframe
-	# print(df_input.dtypes)
-	# d['Soybean_meal_US'] = d['Soybean_meal_US'].astype(float)
+	print(df_input)
+
 	year = int(d['Year'])
 	month = int(d['New_Month'])
 	day = 1
